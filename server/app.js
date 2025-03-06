@@ -1,9 +1,10 @@
 // Express framework for handling API requests
 const express = require('express');
-
+const dotenv = require('dotenv')
+dotenv.config({ path: __dirname + '/.env' });
 // Load environment variables
 require("dotenv").config();
-console.log("MONGO_URI:", process.env.MONGO_URI);
+
 // Enables communication between frontend and backend
 const cors = require('cors');
 
@@ -19,20 +20,11 @@ app.use(cors());
 // Mongoose for DB connection
 const mongoose = require('mongoose');
 
-// Check if MongoDB URI is set
-const mongoUri = process.env.MONGODB_URI;
-if (!mongoUri) {
-  console.error("Error: MONGO_URI is not defined. Check your .env file.");
-  process.exit(1);
-}
-
 // Connect to MongoDB
 
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
-
-// console.log("MONGO_URI:", process.env.MONGO_URI);  // Debugging
 
 // Define test route
 app.get('/', (req, res) => {
