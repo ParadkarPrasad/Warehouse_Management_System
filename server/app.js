@@ -17,6 +17,9 @@ app.use(express.json());
 // Middleware to allow cross-origin requests (frontend-backend communication)
 app.use(cors());
 
+// Register routes
+const authRoutes = require("./routes/authRoutes");
+
 // Mongoose for DB connection
 const mongoose = require('mongoose');
 
@@ -36,3 +39,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+app.use("/api/auth", authRoutes);
