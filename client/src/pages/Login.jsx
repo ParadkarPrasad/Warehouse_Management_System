@@ -17,8 +17,9 @@ const Login = () => {
 
     try {
       const response = await loginUser(formData);
+      // console.log(response);
       localStorage.setItem("token", response.token);
-      localStorage.setItem("user", response.user.role);
+      localStorage.setItem("user", JSON.stringify(response.user));
 
       // Redirect based on role
       if (response.user.role === "admin") {
@@ -28,7 +29,7 @@ const Login = () => {
       }
 
     } catch (err) {
-      setError(err.message || "Invalid credentials");
+      setError(err.response?.data?.message || "Invalid credentials");
     }
   }
   return (
