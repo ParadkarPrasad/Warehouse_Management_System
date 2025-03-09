@@ -5,7 +5,7 @@ const Dashboard = () => {
     <>
       <div className="container">
         <h1>Dashboard</h1>
-        <p>Welcome! hospital warehouse management system</p>
+        <p>Manage inventory and Track supplies</p>
       </div>
     </>
   )

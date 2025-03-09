@@ -26,7 +26,13 @@ const Register = () => {
     setError("");
 
     try {
-      await registerUser(formData);
+      const response = await registerUser(formData);
+      const userData = response.user;
+
+      // Store the JWT token and user data (name, email, role, etc.) in localStorage
+      localStorage.setItem("token", response.token);  // Store token for future requests
+      localStorage.setItem("user", JSON.stringify(userData));  // Store actual user data
+
       alert("Registration successful! Please Login.");
       navigate("/login");
     } catch (err) {

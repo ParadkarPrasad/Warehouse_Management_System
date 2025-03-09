@@ -16,11 +16,16 @@ const Login = () => {
     setError("");
 
     try {
-      const data = await loginUser(formData);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      alert("Login Successful");
-      navigate("/dashboard");
+      const response = await loginUser(formData);
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("user", response.user.role);
+
+      // Redirect based on role
+      if (response.user.role === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
 
     } catch (err) {
       setError(err.message || "Invalid credentials");
@@ -33,7 +38,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <input type="email" name='email' placeholder='Email' onChange={handleChange} required />
         <input type="password" name='password' placeholder='Password' onChange={handleChange} required />
-        <button type='submit'>Logn</button>
+        <button type='submit'>Login</button>
       </form>
     </>
   )

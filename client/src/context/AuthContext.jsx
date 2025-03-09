@@ -8,7 +8,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser && typeof parsedUser === "object") {
+          setUser(parsedUser);
+        }
+        else {
+          throw new Error("Invalid user data");
+        }
+      } catch (error) {
+        console.error("Invalid JSON format in localStorage", error);
+        localStorage.removeItem("user");
+        setUser(null)
+      }
     }
   }, []);
 
