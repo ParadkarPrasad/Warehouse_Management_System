@@ -12,7 +12,7 @@ const Register = () => {
 
   // State to store error message
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   // useNavigate to redirect the users
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const response = await registerUser(formData);
@@ -37,6 +38,8 @@ const Register = () => {
       navigate("/login");
     } catch (err) {
       setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -58,7 +61,7 @@ const Register = () => {
           <option value="admin">Admin</option>
         </select>
 
-        <button type='submit'>Register</button>
+        <button type='submit' disabled={loading}>{loading ? "Registering..." : "Register"}</button>
       </form>
     </>
   )
