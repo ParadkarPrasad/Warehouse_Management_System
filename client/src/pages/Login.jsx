@@ -1,55 +1,50 @@
-import React from 'react'
-import { useState } from 'react'
-import { loginUser } from '../services/api';
-import { useNavigate } from 'react-router-dom';
-const Login = () => {
+import React, { useState } from "react";
+import { loginUser } from "../services/api"; // Import API function
+import { useNavigate } from "react-router-dom";
+// import { AuthContext } from "../context/AuthContext";
+// import { useContext } from "react";
+const Login = ({ setIsAuthenticated, setUserRole }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
+  // const { setUser } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
 
     try {
       const response = await loginUser(formData);
-      // console.log(response);
-      localStorage.setItem("token", response.token);
+      localStorage.setItem("token", response.token); // Store JWT token
       localStorage.setItem("user", JSON.stringify(response.user));
-      localStorage.setItem("role", JSON.stringify(response.user.role));
 
-      // Redirect based on role
-      if (response.user.role === "admin") {
-        navigate("/admin-dashboard");
-      } else {
-        navigate("/dashboard");
-      }
+      const userRole = response.user.role;
+      console.log("User:", userRole) // Store user details
+      setIsAuthenticated(true);
+      setUserRole(userRole);
+      alert("Login successful!");
 
+      navigate(userRole === "admin" ? "/admin-dashboard" : "/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid credentials");
+      setError(err.message || "Invalid credentials");
     }
-    finally {
-      setLoading(false);
-    }
-  }
+  };
+
   return (
-    <>
+    <div>
       <h2>Login</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="email" name='email' placeholder='Email' onChange={handleChange} required />
-        <input type="password" name='password' placeholder='Password' onChange={handleChange} required />
-        <button type='submit' disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <button type="submit">Login</button>
       </form>
-      <p>Don't have an account? <a href="/register">Register here</a></p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default Login
+export default Login;
