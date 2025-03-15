@@ -7,11 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-
-    // Clear localStorage when app first loads to always show login page
-    // localStorage.removeItem("token");
-    // localStorage.removeItem("user");
-
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
