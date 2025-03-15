@@ -4,47 +4,47 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { useEffect, useState } from "react";
-
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { user, isAuthenticated } = useContext(AuthContext);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [userRole, setUserRole] = useState(null);
+  // const [loading, setLoading] = useState(true);
 
   // Handle authentication and role on first load
-  useEffect(() => {
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   const storedUser = localStorage.getItem("user");
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+  //   if (token && storedUser) {
+  //     const user = JSON.parse(storedUser);
+  //     setIsAuthenticated(true);
+  //     setUserRole(user.role);
+  //   }
 
+  //   setLoading(false); // After authentication check, stop loading
+  // }, []);
 
-    const token = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+  // if (loading) {
+  //   return <div>Loading...</div>; // You can show a loading spinner here
+  // }
 
-    if (token && storedUser) {
-      const user = JSON.parse(storedUser);
-      setIsAuthenticated(true);
-      setUserRole(user.role);
-    }
-
-    setLoading(false); // After authentication check, stop loading
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>; // You can show a loading spinner here
-  }
 
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setUserRole={setUserRole} />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["staff", "admin"]} userRole={user?.role} />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin-dashboard" element={userRole === "admin" ? <AdminDashboard /> : <Navigate to="/dashboard" />} />
         </Route>
+
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["admin"]} userRole={user?.role} />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        </Route>
+
 
         {/* Default Redirect Based on Role */}
         <Route
@@ -52,7 +52,7 @@ function App() {
           element={
             !isAuthenticated ? (
               <Navigate to="/login" /> // Force redirect to login if not authenticated
-            ) : userRole === "admin" ? (
+            ) : user?.role === "admin" ? (
               <Navigate to="/admin-dashboard" />
             ) : (
               <Navigate to="/dashboard" />

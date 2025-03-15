@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { loginUser } from "../services/api"; // Import API function
 import { useNavigate } from "react-router-dom";
-// import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 // import { useContext } from "react";
-const Login = ({ setIsAuthenticated, setUserRole }) => {
+const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  // const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,16 +19,9 @@ const Login = ({ setIsAuthenticated, setUserRole }) => {
 
     try {
       const response = await loginUser(formData);
-      localStorage.setItem("token", response.token); // Store JWT token
-      localStorage.setItem("user", JSON.stringify(response.user));
-
-      const userRole = response.user.role;
-      console.log("User:", userRole) // Store user details
-      setIsAuthenticated(true);
-      setUserRole(userRole);
+      login(response.user, response.token); // Store in context
       alert("Login successful!");
-
-      navigate(userRole === "admin" ? "/admin-dashboard" : "/dashboard");
+      navigate(response.user.role === "admin" ? "/admin-dashboard" : "/dashboard");
     } catch (err) {
       setError(err.message || "Invalid credentials");
     }
