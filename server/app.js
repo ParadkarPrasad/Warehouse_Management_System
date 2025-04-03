@@ -19,6 +19,7 @@ app.use(cors());
 
 // Register routes
 const authRoutes = require("./routes/authRoutes");
+const itemRoutes = require("./routes/itemRoutes");
 
 // Mongoose for DB connection
 const mongoose = require('mongoose');
@@ -41,3 +42,4 @@ app.listen(PORT, () => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/items", itemRoutes);

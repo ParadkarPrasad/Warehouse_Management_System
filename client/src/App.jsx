@@ -8,28 +8,6 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 function App() {
   const { user, isAuthenticated } = useContext(AuthContext);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [userRole, setUserRole] = useState(null);
-  // const [loading, setLoading] = useState(true);
-
-  // Handle authentication and role on first load
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   const storedUser = localStorage.getItem("user");
-
-  //   if (token && storedUser) {
-  //     const user = JSON.parse(storedUser);
-  //     setIsAuthenticated(true);
-  //     setUserRole(user.role);
-  //   }
-
-  //   setLoading(false); // After authentication check, stop loading
-  // }, []);
-
-  // if (loading) {
-  //   return <div>Loading...</div>; // You can show a loading spinner here
-  // }
-
 
   return (
     <Router>
