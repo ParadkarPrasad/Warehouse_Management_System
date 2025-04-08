@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-
+import itemApi from "../services/itemApi";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -8,10 +8,12 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
+    const storedToken = localStorage.getItem("token");
+    if (storedUser && storedToken) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
       setIsAuthenticated(true);
+      itemApi.setToken(storedToken);
     }
   }, []);
 
@@ -21,6 +23,7 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
     // console.log(userData);
     setIsAuthenticated(true);
+    itemApi.setToken(token);
   };
 
   const logout = () => {
@@ -28,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("user");
     setUser(null);
     setIsAuthenticated(false);
+    itemApi.setToken(null);
   };
 
   return (
