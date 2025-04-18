@@ -10,7 +10,7 @@ const setToken = (newToken) => {
 }
 
 // fetch all items
-const getAlltems = async () => {
+const getAllItems = async () => {
   const config = {
     headers: { Authorization: token },
   }
@@ -43,8 +43,12 @@ const updateItem = async (id, updateData) => {
     headers: { Authorization: token },
 
   }
-  const response = await axios.put(`${baseUrl}/${id}`, updateData, config)
-  return response.data
+  try {
+    const response = await axios.put(`${baseUrl}/${id}`, updateData, config)
+    return response.data
+  } catch (error) {
+    throw error;
+  }
 }
 
 // delete item
@@ -56,4 +60,4 @@ const deleteItem = async (id) => {
   return response.data
 }
 
-export default { getAlltems, getItemById, addItem, updateItem, deleteItem, setToken };
+export default { getAllItems, getItemById, addItem, updateItem, deleteItem, setToken };

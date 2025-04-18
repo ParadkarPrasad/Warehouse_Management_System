@@ -4,6 +4,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import UpdateItemForm from "./Components/UpdateItemForm"
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 function App() {
@@ -17,6 +18,7 @@ function App() {
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["staff", "admin"]} userRole={user?.role} />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/update-items/:id" element={<UpdateItemForm />} />
         </Route>
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["admin"]} userRole={user?.role} />}>

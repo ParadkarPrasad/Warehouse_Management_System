@@ -47,14 +47,12 @@ router.post("/", verifyToken, isAdmin, async (req, res) => {
 
 router.put("/:id", verifyToken, async (req, res) => {
   try {
-    // Check if the user is admin
-    const isAdmin = req.user.role === "admin";
 
     // if user is staff member restriction to only update quantity
     if (req.user.role === "staff") {
-      const { name, category } = req.body
+      const { name, description, category } = req.body
 
-      if (name || category) {
+      if (name || description || category) {
         return res.status(403).json({ message: "Staff cannot update item details. Only quantity is allowed." });
       }
     }
