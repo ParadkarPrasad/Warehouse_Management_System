@@ -28,7 +28,7 @@ const AdminDashboard = () => {
   // Handle Search
   const handleSearch = () => {
     setSearchItem(inputValue);
-    setInputValue("");
+    // setInputValue("");
   }
 
   // User press Enter or search button
@@ -40,33 +40,45 @@ const AdminDashboard = () => {
   }
   return (
     <>
-      <Navbar />
-      <div className='p-4'>
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <h2 className='px-2 mt-2.5 text-2xl font-bold'>Admin Dashboard</h2>
-            <p className='px-2 text-blue-700 font-medium py-2'>Welcome! Manage users, view reports and change settings</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <input className="border px-2 py-1" type='text' placeholder='Search Inventory Item' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
-            <button onClick={handleSearch}>
-              <FontAwesomeIcon icon={faSearch} />
-            </button>
-          </div>
+      <div >
+        <Navbar />
+      </div>
+      <div className='dashboard-header'>
+        <div className='dashboard-title'>
+          <h2 >Admin Dashboard</h2>
+          <p >Welcome! Manage users, view reports and change settings</p>
         </div>
-        <div>
+        <div className='dashboard-search' >
+          <input type='text' placeholder='Search Inventory Item' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
+          <button onClick={handleSearch}>
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+          {searchItem && (
+            <button onClick={() => {
+              setSearchItem("");
+              setInputValue(""); // Reset the input value too
+            }}>
+              Clear
+            </button>
+          )}
+        </div>
+      </div>
+      <div className='dashboard-content'>
+        <div className='addForm'>
           {user.role === "admin" && (
-            <div className="w-1/3">
+            <div className='form_layout'>
               <AddItemForm onItemAdded={fetchItems} />
             </div>
           )}
-          <div className={user.role === "admin" ? "w-2/3" : "w-full"}>
+        </div>
+        <div className='inventory_section'>
+          {user.role === "admin" && (
             <InventoryList
               items={items}
               setItems={setItems}
               searchItem={searchItem}
             />
-          </div>
+          )}
         </div>
       </div>
     </>

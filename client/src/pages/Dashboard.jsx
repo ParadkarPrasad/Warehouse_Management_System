@@ -31,15 +31,15 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="container px-4 py-3">
+      <div >
         <div>
           <div>
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-            <p className="text-gray-600">Manage inventory and track supplies</p>
+            <h1 >Dashboard</h1>
+            <p >Manage inventory and track supplies</p>
           </div>
         </div>
         <div>
-          <input className="border px-2 py-1 rounded-md" type='text' placeholder='Search inventory items' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
+          <input type='text' placeholder='Search inventory items' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
           <button onClick={handleSearch}>
             <FontAwesomeIcon icon={faSearch} />
           </button>

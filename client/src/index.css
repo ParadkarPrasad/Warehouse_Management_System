@@ -1,2 +1,413 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import "tailwindcss";
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding:0;
+}
+
+/* Login Form */
+.form-container {
+  width: 90%;
+  max-width: 1200px;
+  padding: 100px;
+  margin: 0 auto;
+}
+
+.login-heading{
+  text-align: center;
+}
+
+.form-layout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-login{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+  0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-items{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-box{
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.login-button{
+    padding: 15px 30px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    font-weight: 300;
+    
+}
+
+.redirect{
+  color: blue;
+  cursor: pointer;
+}
+.redirect:hover{
+  text-decoration: underline;
+
+}
+
+@media (max-width: 600px) {
+  .form-login {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .input-box{
+    width: 100%;
+  }
+}
+
+/* Register form */
+
+.register-container{
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px;
+}
+
+.register-heading{
+  text-align: center;
+}
+
+.register-layout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registration{
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+  0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.register-items{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.register-input{
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+.register_button{
+  padding: 15px 30px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-weight: 300;
+}
+
+/* Register form responsive size */
+
+@media (max-width:600px) {
+  .register-container{
+    padding: 20px;
+  }
+
+.registration {
+   width: 100%;
+    max-width: 100%;
+    padding: 20px;
+}
+.register-items {
+  margin-bottom: 16px;
+}
+
+.register-input {
+  padding: 8px;
+}
+
+}
+
+/* Navbar */
+
+.navbar_container{
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+/* Admin dashboard  navbar*/
+
+.dashboard-header{
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:0 auto;
+}
+
+.dashboard-title h2{
+  margin: 0;
+  font-size: 24px;
+}
+
+.dashboard-title p {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.dashboard-search{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-search input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.dashboard-search button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+/* responsive admin dashboard navbar */
+
+@media (max-width: 700px) {
+  .dashboard-header {
+    width: 80%;
+    max-width: 500px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.dashboard-search {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.dashboard-search input{
+  width: 70%;
+  
+}
+
+}
+
+/* Dashboard content */
+
+.dashboard-content{
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+  gap: 4rem;
+}
+
+.addForm{
+  width: 30%;
+}
+
+.form_layout{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),   0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.form_layout h3{
+  text-align: center;
+}
+
+.form_details{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.form_details input{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border:1px solid #ccc
+}
+
+.addItem_btn{
+  padding: 15px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inventory_section{
+  width: 70%;
+}
+.inventory_section h2{
+  text-align: center;
+}
+
+th{
+  background-color: darkgray;
+}
+td{
+  text-align: center;
+}
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+}
+tr:hover{
+  background-color: beige;
+}
+
+.btn-group{
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+}
+button:hover {
+  background-color: #e0e0e0;
+}
+
+
+
+
+/* Update Form */
+
+.update_container{
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 10px;
+}
+
+.update_container h2{
+  text-align: center;
+}
+
+.update_layout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.update_item{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),   0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.update_label{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.update_input{
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.update-btn{
+  padding: 15px 30px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-weight: 300;
+}
+
+.back-btn{
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  color: #333;
+  background-color: #f0f0f0;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+
+}
+
+/* responsive update form */
+
+@media (max-width:600px) {
+  .update_container{
+    padding: 10px;
+  }
+
+  .update_item{
+    width: 100%;
+    max-width: 100%;
+    padding: 30px;
+  }
+  .update_input{
+    padding: 8px;
+  }
+}

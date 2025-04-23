@@ -29,6 +29,7 @@ const UpdateItemForm = () => {
   }, [id])
 
   // Handle form input changes
+
   const handleChange = (e) => {
     setItemData({ ...itemData, [e.target.name]: e.target.value })
   }
@@ -61,14 +62,16 @@ const UpdateItemForm = () => {
   return (
     <>
       <Navbar />
-      <div className=" pt-10">
-        <h2 className='text-center'>Update Item</h2>
-        <div className='flex justify-center w-full px-4'>
-          <form className="flex flex-col items-start mt-6 w-full max-w-md p-6 bg-white rounded-2xl shadow-lg" onSubmit={handleSubmit}>
-            <div className="w-full mb-4">
-              <label className='block mb-1 font-medium' htmlFor="name">Name</label>
+
+      <div className='update_container' >
+        <button className='back-btn' onClick={() => navigate(user.role === "admin" ? "/admin-dashboard" : "/dashboard")}>Back</button>
+        <h2>Update Item</h2>
+        <div className='update_layout' >
+          <form className='update_item' onSubmit={handleSubmit}>
+            <div className='update_label' >
+              <label htmlFor="name">Name</label>
               <input
-                className="w-full p-2 border-2 rounded-md border-gray-300 focus:outline-none focus:border-gray-50 placeholder:text-gray-500 placeholder:italic"
+                className='update_input'
                 type="text"
                 id="name"
                 name="name"
@@ -77,20 +80,20 @@ const UpdateItemForm = () => {
                 required
               />
             </div>
-            <div className="w-full mb-4">
-              <label className='block mb-1 font-medium' htmlFor="description">Description</label>
+            <div className='update_label' >
+              <label htmlFor="description">Description</label>
               <textarea
-                className="w-full p-2 border-2 rounded-md border-gray-300 focus:outline-none focus:border-gray-50 placeholder:text-gray-500 placeholder:italic"
+                className='update_input'
                 id="description"
                 name="description"
                 value={itemData.description}
                 onChange={handleChange}
               />
             </div>
-            <div className="w-full mb-4">
-              <label className='block mb-1 font-medium' htmlFor="quantity">Quantity</label>
+            <div className='update_label' >
+              <label htmlFor="quantity">Quantity</label>
               <input
-                className="w-full p-2 border-2 rounded-md border-gray-300 focus:outline-none focus:border-gray-50 placeholder:text-gray-500 placeholder:italic"
+                className='update_input'
                 type="number"
                 id="quantity"
                 name="quantity"
@@ -100,10 +103,10 @@ const UpdateItemForm = () => {
                 min="0"
               />
             </div>
-            <div className="w-full mb-4">
-              <label className='block mb-1 font-medium' htmlFor="category">Category</label>
+            <div className='update_label' >
+              <label htmlFor="category">Category</label>
               <input
-                className="w-full p-2 border-2 rounded-md border-gray-300 focus:outline-none focus:border-gray-50 placeholder:text-gray-500 placeholder:italic"
+                className='update_input'
                 type="text"
                 id="category"
                 name="category"
@@ -112,7 +115,7 @@ const UpdateItemForm = () => {
                 required
               />
             </div>
-            <button className="w-full p-2 mt-2 bg-black text-white font-semibold rounded-md transition cursor-pointer" type='submit'>Update Item</button>
+            <button className='update-btn' type='submit'>Update Item</button>
           </form>
         </div>
       </div>

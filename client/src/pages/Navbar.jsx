@@ -13,8 +13,8 @@ const Navbar = () => {
   }
   return (
     <>
-      <nav className='flex justify-end mt-2.5'>
-        <button className='p-3' onClick={handleLogout}> <FontAwesomeIcon icon={faRightFromBracket} /></button>
+      <nav className='navbar_container'>
+        <button className='logout' onClick={handleLogout}> <FontAwesomeIcon icon={faRightFromBracket} /></button>
       </nav>
     </>
   )

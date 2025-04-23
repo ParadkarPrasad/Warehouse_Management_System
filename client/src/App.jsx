@@ -8,7 +8,9 @@ import UpdateItemForm from "./Components/UpdateItemForm"
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 function App() {
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated, isLoading } = useContext(AuthContext);
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <Router>
@@ -16,12 +18,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["staff", "admin"]} userRole={user?.role} />}>
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["staff", "admin"]} />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/update-items/:id" element={<UpdateItemForm />} />
         </Route>
 
-        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["admin"]} userRole={user?.role} />}>
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} allowedRoles={["admin"]} />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Route>
 

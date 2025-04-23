@@ -40,41 +40,46 @@ const InventoryList = ({ items, setItems, searchItem }) => {
   return (
     <>
 
-      <h2 className="text-xl font-semibold mb-2">Inventory List</h2>
+      <h2 >Inventory List</h2>
       {filterItem.length === 0 ? (
         <p>No items in inventory.</p>
       ) : (
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border p-2">Item Name</th>
-              <th className="border p-2">Item Description</th>
-              <th className="border p-2">Quantity</th>
-              <th className="border p-2">Category</th>
-              <th className="border p-2">Added On</th>
-              <th className="border p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filterItem.map((item) => (
-              <tr key={item.id}>
-                <td className="border p-2">{item.name}</td>
-                <td className="border p-2">{item.description}</td>
-                <td className="border p-2">{item.quantity}</td>
-                <td className="border p-2">{item.category}</td>
-                <td className="border p-2">{new Date(item.createdAt).toLocaleDateString()}</td>
-                <td className="border p-2 space-x-2">
-                  {(user.role === "admin" || user.role === "staff") && (
-                    <button onClick={() => handleEdit(item.id)}>Edit</button>
-                  )}
-                  {user.role === "admin" && (
-                    <button onClick={() => handleDelete(item.id)}>Delete</button>
-                  )}
-                </td>
+        <div >
+          <table >
+            <thead>
+              <tr >
+                <th >Item Name</th>
+                <th >Item Description</th>
+                <th >Quantity</th>
+                <th >Category</th>
+                <th >Added On</th>
+                <th >Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filterItem.map((item) => (
+                <tr key={item.id}>
+                  <td >{item.name}</td>
+                  <td >{item.description}</td>
+                  <td >{item.quantity}</td>
+                  <td >{item.category}</td>
+                  <td >{new Date(item.createdAt).toLocaleDateString()}</td>
+
+                  <td >
+                    <div className='btn-group'>
+                      {(user.role === "admin" || user.role === "staff") && (
+                        <button onClick={() => handleEdit(item.id)}>Edit</button>
+                      )}
+                      {user.role === "admin" && (
+                        <button onClick={() => handleDelete(item.id)}>Delete</button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </>
   )

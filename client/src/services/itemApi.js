@@ -45,6 +45,7 @@ const updateItem = async (id, updateData) => {
   }
   try {
     const response = await axios.put(`${baseUrl}/${id}`, updateData, config)
+    console.log("Update response:", response);
     return response.data
   } catch (error) {
     throw error;
