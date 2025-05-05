@@ -40,45 +40,47 @@ const AdminDashboard = () => {
   }
   return (
     <>
-      <div >
-        <Navbar />
-      </div>
-      <div className='dashboard-header'>
-        <div className='dashboard-title'>
-          <h2 >Admin Dashboard</h2>
-          <p >Welcome! Manage users, view reports and change settings</p>
+      <div className='container'>
+        <div >
+          <Navbar />
         </div>
-        <div className='dashboard-search' >
-          <input type='text' placeholder='Search Inventory Item' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
-          <button onClick={handleSearch}>
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
-          {searchItem && (
-            <button onClick={() => {
-              setSearchItem("");
-              setInputValue(""); // Reset the input value too
-            }}>
-              Clear
+        <div className='dashboard-header'>
+          <div className='dashboard-title'>
+            <h2 >Admin Dashboard</h2>
+            <p >Welcome! Manage users, view reports and change settings</p>
+          </div>
+          <div className='dashboard-search' >
+            <input type='text' placeholder='Search Inventory Item' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyDown={handleKeyDown} />
+            <button onClick={handleSearch}>
+              <FontAwesomeIcon icon={faSearch} />
             </button>
-          )}
+            {searchItem && (
+              <button onClick={() => {
+                setSearchItem("");
+                setInputValue(""); // Reset the input value too
+              }}>
+                Clear
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-      <div className='dashboard-content'>
-        <div className='addForm'>
-          {user.role === "admin" && (
-            <div className='form_layout'>
-              <AddItemForm onItemAdded={fetchItems} />
-            </div>
-          )}
-        </div>
-        <div className='inventory_section'>
-          {user.role === "admin" && (
-            <InventoryList
-              items={items}
-              setItems={setItems}
-              searchItem={searchItem}
-            />
-          )}
+        <div className='dashboard-content'>
+          <div className='addForm'>
+            {user.role === "admin" && (
+              <div className='form_layout'>
+                <AddItemForm onItemAdded={fetchItems} />
+              </div>
+            )}
+          </div>
+          <div className='inventory-section'>
+            {user.role === "admin" && (
+              <InventoryList
+                items={items}
+                setItems={setItems}
+                searchItem={searchItem}
+              />
+            )}
+          </div>
         </div>
       </div>
     </>
