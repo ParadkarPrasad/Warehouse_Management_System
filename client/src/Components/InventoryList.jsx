@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 // import itemApi to show all items
 import itemApi from '../services/itemApi'
@@ -6,11 +6,18 @@ import itemApi from '../services/itemApi'
 // to get the current user role
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom'; // for navigation to update form
+
+
+// Pagination items
+const ITEMS_PER_PAGE = 5;
 const InventoryList = ({ items, setItems, searchItem }) => {
 
   // Get current user login
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Delete Button 
   const handleDelete = async (id) => {
@@ -34,6 +41,20 @@ const InventoryList = ({ items, setItems, searchItem }) => {
     item.category.toLowerCase().includes(searchItem.toLowerCase())
   ))
 
+  // Pagination logic
+  const totalPages = Math.ceil(filterItem.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedItems = filterItem.slice(startIndex, endIndex);
+
+  // Handle page navigation
+  const goToNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
 
 
@@ -41,7 +62,7 @@ const InventoryList = ({ items, setItems, searchItem }) => {
 
     <div className="inventory-wrapper">
       <h2 className="inventory-heading">Inventory List</h2>
-      {filterItem.length === 0 ? (
+      {paginatedItems.length === 0 ? (
         <p>No items in inventory.</p>
       ) : (
         <>
@@ -58,7 +79,7 @@ const InventoryList = ({ items, setItems, searchItem }) => {
                 </tr>
               </thead>
               <tbody>
-                {filterItem.map((item) => (
+                {paginatedItems.map((item) => (
                   <tr key={item.id}>
                     <td >{item.name}</td>
                     <td >{item.description}</td>
@@ -83,7 +104,7 @@ const InventoryList = ({ items, setItems, searchItem }) => {
           </div>
 
           <div className="inventory-cards">
-            {filterItem.map(item => (
+            {paginatedItems.map(item => (
               <div key={item.id} className="inventory-card">
                 <h3>{item.name}</h3>
                 <p><strong>Description:</strong> {item.description}</p>
@@ -100,6 +121,13 @@ const InventoryList = ({ items, setItems, searchItem }) => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="pagination-controls" style={{ marginTop: '20px', textAlign: 'center' }}>
+            <button onClick={goToPrevPage} disabled={currentPage === 1}>Previous</button>
+            <span style={{ margin: '0 10px' }}>Page {currentPage} of {totalPages}</span>
+            <button onClick={goToNextPage} disabled={currentPage === totalPages}>Next</button>
           </div>
         </>
       )}
