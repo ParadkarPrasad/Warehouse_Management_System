@@ -5,10 +5,9 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UpdateItemForm from "./Components/UpdateItemForm"
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { useSelector } from "react-redux";
 function App() {
-  const { user, isAuthenticated, isLoading } = useContext(AuthContext);
+  const { user, isAuthenticated, loading: isLoading } = useSelector((state) => state.auth)
 
   if (isLoading) return <div>Loading...</div>;
 

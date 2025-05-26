@@ -1,14 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from './Navbar'
 import InventoryList from '../Components/InventoryList'
 import AddItemForm from '../Components/AddItemForm'
 import itemApi from '../services/itemApi'
-import { AuthContext } from '../context/AuthContext'
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 const AdminDashboard = () => {
   const [items, setItems] = useState([]);
-  const { user } = useContext(AuthContext);
+  const user = useSelector(state => state.auth.user);
   // Search bar states
   const [inputValue, setInputValue] = useState("")
   const [searchItem, setSearchItem] = useState("")

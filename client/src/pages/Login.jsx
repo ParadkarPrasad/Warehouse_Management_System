@@ -1,13 +1,21 @@
-import React, { useState, useContext } from "react";
-import { loginUser } from "../services/api"; // Import API function
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { loginThunk } from "../reducers/authReducer";
 // import { useContext } from "react";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
+
+  // Access Redux State
+  const { user, loading, error, isAuthenticated } = useSelector((state) => state.auth)
+
+
+  // For dispatching loginThunk
+  const dispatch = useDispatch();
+
+  // Navigation
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,17 +23,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      const response = await loginUser(formData);
-      login(response.user, response.token); // Store in context
-      alert("Login successful!");
-      navigate(response.user.role === "admin" ? "/admin-dashboard" : "/dashboard");
-    } catch (err) {
-      setError(err.message || "Invalid credentials");
-    }
+    dispatch(loginThunk(formData));
   };
+
+  // Redirect user after successful login
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      navigate(user.role === "admin" ? "/admin-dashboard" : "/dashboard");
+    }
+  }, [isAuthenticated, user, navigate]);
 
   return (
     <div className="form-container">
@@ -41,7 +47,7 @@ const Login = () => {
             <label htmlFor="Password">Password</label>
             <input className="input-box" type="password" name="password" placeholder="Password" onChange={handleChange} required />
           </div>
-          <button className="login-button" type="submit">Login</button>
+          <button className="login-button" type="submit" disabled={loading}>{loading ? "Logging in" : "Login"}</button>
           <p>
             Don't have an account?{" "}
             <span className="redirect"

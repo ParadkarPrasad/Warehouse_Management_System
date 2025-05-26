@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import itemApi from '../services/itemApi'
-import { AuthContext } from '../context/AuthContext';
+import { useSelector } from 'react-redux';
 import Navbar from '../pages/Navbar';
 const UpdateItemForm = () => {
   const [error, setError] = useState("");
@@ -11,7 +11,7 @@ const UpdateItemForm = () => {
     quantity: "",
     category: "",
   })
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user)
   const { id } = useParams();
   const navigate = useNavigate();
 

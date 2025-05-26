@@ -1,19 +1,19 @@
-import React, { useContext, useState } from 'react'
-
+import React, { useState } from 'react'
+import { useSelector } from "react-redux";
 // import itemApi to show all items
 import itemApi from '../services/itemApi'
 
 // to get the current user role
-import { AuthContext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom'; // for navigation to update form
 
+import { useNavigate } from 'react-router-dom'; // for navigation to update form
 
 // Pagination items
 const ITEMS_PER_PAGE = 5;
 const InventoryList = ({ items, setItems, searchItem }) => {
 
   // Get current user login
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user)
   const navigate = useNavigate();
 
   // Pagination state

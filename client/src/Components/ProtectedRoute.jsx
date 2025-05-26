@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 const ProtectedRoute = ({ allowedRoles }) => {
-  const { isAuthenticated, user, isLoading } = useContext(AuthContext);
-  if (isLoading) {
+  // Grab authentication info from Redux store
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
+  if (loading) {
     return <div>Loading...</div>;
   }
 
